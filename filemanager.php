@@ -1441,6 +1441,32 @@ function alert($message) {
     .blocker.behind {
         background-color: transparent;
     }
+    .modal-delete {
+        padding:20px;
+    }
+    .modal-delete .msg {
+        text-align: center;
+        margin-bottom:20px;
+    }
+    .modal-delete .button {
+        text-align:center;
+    }
+    .modal-delete .button button {
+        border-radius: 5px;
+        font-size: 15px;
+        background: #e7f3ff;
+        font-weight: bold;
+        border: 1px solid #e7f3ff;
+        color: #1889f5;
+        outline: none;
+        padding: 5px;
+        width:200px;
+    }
+    .modal-delete .button button.no {
+        background: red;
+        border: 1px solid red;
+        color: #fff;
+    }
     .modal-rename {
         display: none;
         vertical-align: middle;
@@ -2297,7 +2323,7 @@ function filterTable() {
                                             </div>
                                         </li>
                                         <li>
-                                            <button name="action" value="delete">Delete</button>
+                                            <a href="#delete<?= XN::replace($file['names']) ?>" rel="modal:open">Delete</a>
                                         </li>
                                         <li>
                                             <a href="#rename<?= XN::replace($file['names']) ?>" rel="modal:open">Rename</a>
@@ -2310,7 +2336,7 @@ function filterTable() {
                                             <button>Unzip</button>
                                         </li>
                                         <li>
-                                            <button name="action" value="delete">Delete</button>
+                                            <a href="#delete<?= XN::replace($file['names']) ?>" rel="modal:open">Delete</a>
                                         </li>
                                         <li>
                                             <a href="#rename<?= XN::replace($file['names']) ?>" rel="modal:open">Rename</a>
@@ -2331,7 +2357,7 @@ function filterTable() {
                                             </div>
                                         </li>
                                         <li>
-                                            <button name="action" value="delete">Delete</button>
+                                            <a href="#delete<?= XN::replace($file['names']) ?>" rel="modal:open">Delete</a>
                                         </li>
                                         <li>
                                             <a href="#rename<?= XN::replace($file['names']) ?>" rel="modal:open">Rename</a>
@@ -2345,7 +2371,7 @@ function filterTable() {
                                             <button name="action" value="edit">Edit</button>
                                         </li>
                                         <li>
-                                            <button name="action" value="delete">Delete</button>
+                                            <a href="#delete<?= XN::replace($file['names']) ?>" rel="modal:open">Delete</a>
                                         </li>
                                         <li>
                                             <a href="#rename<?= XN::replace($file['names']) ?>" rel="modal:open">Rename</a>
@@ -2371,6 +2397,21 @@ function filterTable() {
                                 </div>
                                 <div>
                                     <button name="action" value="rename">Rename</button>
+                                </div>
+                                <input type="hidden" name="file" value="<?= $file['name'] ?>">
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Action Delete -->
+                    <div id="delete<?= XN::replace($file['names']) ?>" class="modal modal-delete">
+                        <div class="delete">
+                            <div  class="msg">
+                                Your sure want to delete <u><?= $file['names'] ?></u> ?
+                            </div>
+                            <form method="post" action="?x=<?= getcwd() ?>">
+                                <div class="button">
+                                    <button name="action" value="delete">Yes</button>
+                                    <button class="no">No</button>
                                 </div>
                                 <input type="hidden" name="file" value="<?= $file['name'] ?>">
                             </form>
