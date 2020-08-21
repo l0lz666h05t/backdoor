@@ -126,23 +126,27 @@ class XN {
             case 'php6':
             case 'phtml':
             case 'php':
-                self::vers('https://image.flaticon.com/icons/svg/337/337947.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306154.svg');
                 break;
             case 'html':
             case 'htm':
-                self::vers('https://image.flaticon.com/icons/svg/337/337937.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306098.svg');
+                break;
+            case 'asp':
+            case 'aspx':
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306019.svg');
                 break;
             case 'css':
-                self::vers('https://image.flaticon.com/icons/svg/136/136527.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306041.svg');
                 break;
             case 'js':
-                self::vers('https://image.flaticon.com/icons/svg/337/337941.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306122.svg');
                 break;
             case 'json':
                 self::vers('https://image.flaticon.com/icons/svg/136/136525.svg');
                 break;
             case 'xml':
-                self::vers('https://image.flaticon.com/icons/svg/337/337959.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306209.svg');
                 break;
             case 'py':
                 self::vers('https://image.flaticon.com/icons/svg/617/617531.svg');
@@ -157,16 +161,18 @@ class XN {
                 self::vers('https://image.flaticon.com/icons/png/128/1720/1720444.png');
                 break;
             case 'txt':
-                self::vers('https://image.flaticon.com/icons/svg/136/136538.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306185.svg');
                 break;
             case 'ini':
                 self::vers('https://image.flaticon.com/icons/svg/1126/1126890.svg');
                 break;
             case 'mp3':
-                self::vers('https://image.flaticon.com/icons/svg/337/337944.svg');
+            case 'm4a':
+            case 'wav':
+                self::vers('https://i.pinimg.com/originals/fd/50/42/fd5042a1f17c0b1340a3a4d35f503b98.png');
                 break;
             case 'mp4':
-                self::vers('https://image.flaticon.com/icons/svg/2306/2306142.svg');
+                self::vers('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/video512x512.png');
                 break;
             case 'log':
                 self::vers('https://image.flaticon.com/icons/svg/2306/2306124.svg');
@@ -175,13 +181,31 @@ class XN {
                 self::vers('https://image.flaticon.com/icons/svg/2306/2306050.svg');
                 break;
             case 'exe':
-                self::vers('https://image.flaticon.com/icons/svg/136/136531.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306085.svg');
+                break;
+            case 'psd':
+                self::vers("https://image.flaticon.com/icons/svg/2306/2306166.svg");
                 break;
             case 'apk':
                 self::vers('https://1.bp.blogspot.com/-HZGGTdD2niI/U2KlyCpOVnI/AAAAAAAABzI/bavDJBFSo-Q/s1600/apk-icon.jpg');
                 break;
             case 'yaml':
                 self::vers('https://cdn1.iconfinder.com/data/icons/hawcons/32/698694-icon-103-document-file-yml-512.png');
+                break;
+            case 'md':
+                self::vers("https://image.flaticon.com/icons/svg/2521/2521594.svg");
+                break;
+            case 'sql':
+                self::vers("https://image.flaticon.com/icons/svg/2306/2306173.svg");
+                break;
+            case 'csv':
+                self::vers("https://image.flaticon.com/icons/svg/2306/2306046.svg");
+                break;
+            case 'xls':
+                self::vers("https://image.flaticon.com/icons/svg/2306/2306196.svg");
+                break;
+            case 'docs':
+                self::vers("https://image.flaticon.com/icons/svg/2306/2306060.svg");
                 break;
             case 'bak':
                 self::vers('https://image.flaticon.com/icons/svg/2125/2125736.svg');
@@ -190,21 +214,21 @@ class XN {
                 self::vers('https://image.flaticon.com/icons/svg/1126/1126873.svg');
                 break;
             case 'png':
-                self::vers('https://image.flaticon.com/icons/svg/337/337948.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306156.svg');
                 break;
             case 'jpg':
             case 'jpeg':
             case 'webp':
-                self::vers('https://image.flaticon.com/icons/svg/337/337940.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306117.svg');
                 break;
             case 'svg':
-                self::vers('https://image.flaticon.com/icons/svg/337/337954.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306179.svg');
                 break;
             case 'gif':
-                self::vers('https://image.flaticon.com/icons/svg/337/337936.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306094.svg');
                 break;
             case 'pdf':
-                self::vers('https://image.flaticon.com/icons/svg/337/337946.svg');
+                self::vers('https://image.flaticon.com/icons/svg/2306/2306145.svg');
                 break;
             default:
                 self::vers('https://image.flaticon.com/icons/svg/833/833524.svg');
@@ -1149,17 +1173,9 @@ function alert($message) {
     td {
         border-radius:5px;
     }
+    table td.border2,
     table td.border1 {
-        border-top-left-radius: 5px;
-        border-top-right-radius:0px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius:0px;
-    }
-    table td.border2 {
-        border-top-left-radius: 0px;
-        border-top-right-radius:5px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius:5px;
+        border-radius:5px;
     }
     .hover {
         transition: all 0.35s;
@@ -1242,7 +1258,7 @@ function alert($message) {
         background: #ebebeb;
         outline: none;
         padding: .5em 1em;
-        border-radius: .3em;
+        border-radius: 50%;
         transition: all 0.35s;
     }
     .dropdown-toggle:hover {
@@ -2320,22 +2336,50 @@ function filterTable() {
                                 $rep = str_replace(array(' ', '.', ':', '-' , '(', ')'), '', $file['names']);
                                 switch (XN::getext($file['name'])) {
                                     case 'mp4':
+                                    case 'wav':
                                     case 'mp3':
+                                    case 'm4a':
                                     switch (XN::getext($file['name'])) {
+                                        // Audio
                                         case 'mp3':
-                                            $result = str_replace('mp3', 'Audio', XN::getext($file['name']));
+                                        case 'm4a':
+                                        case 'wav':
+                                            $result = str_replace(array('mp3', 'm4a', 'wav'), 'Audio', XN::getext($file['name']));
                                             break;
+                                        // Video
                                         case 'mp4':
-                                            $result = str_replace('mp4', 'Video', XN::getext($file['name']));
+                                            $result = str_replace(array('mp4', 'wav'), 'Video', XN::getext($file['name']));
                                             break;
                                     }
                                         ?>
                                         <li>
                                             <a href="#ex1<?= $rep ?>" rel="modal:open">Play</a>
                                             <div id="ex1<?= $rep ?>" class="modal">
-                                                <<?= $result ?> controls>
-                                                    <source src="<?= str_replace($_SERVER['DOCUMENT_ROOT'], '', $file["name"]) ?>" type="<?= $result ?>/<?= XN::getext($file['name']) ?>">
-                                                </<?= $result ?>>
+                                                <?php
+                                                switch (XN::getext($file['name'])) {
+                                                    case 'm4a':
+                                                        ?>
+                                                        <<?= $result ?> controls>
+                                                        <source src="<?= str_replace($_SERVER['DOCUMENT_ROOT'], '', $file["name"]) ?>" type="<?= $result ?>/mp4">
+                                                            </<?= $result ?>>
+                                                        <?php
+                                                        break;
+                                                    case 'wav':
+                                                        ?>
+                                                        <<?= $result ?> controls>
+                                                        <source src="<?= str_replace($_SERVER['DOCUMENT_ROOT'], '', $file["name"]) ?>" type="<?= $result ?>/x-wav">
+                                                            </<?= $result ?>>
+                                                        <?php
+                                                        break;
+                                                    default:
+                                                        ?>
+                                                        <<?= $result ?> controls>
+                                                            <source src="<?= str_replace($_SERVER['DOCUMENT_ROOT'], '', $file["name"]) ?>" type="<?= $result ?>/<?= XN::getext($file['name']) ?>">
+                                                        </<?= $result ?>>
+                                                        <?php
+                                                        break;
+                                                }
+                                                ?>
                                             </div>
                                         </li>
                                         <li>
