@@ -169,10 +169,11 @@ class XN {
             case 'mp3':
             case 'm4a':
             case 'wav':
-                self::vers('https://i.pinimg.com/originals/fd/50/42/fd5042a1f17c0b1340a3a4d35f503b98.png');
+            case 'ogg':
+                self::vers('https://image.flaticon.com/icons/svg/2822/2822588.svg');
                 break;
             case 'mp4':
-                self::vers('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/video512x512.png');
+                self::vers('https://image.flaticon.com/icons/svg/2822/2822589.svg');
                 break;
             case 'log':
                 self::vers('https://image.flaticon.com/icons/svg/2306/2306124.svg');
@@ -2338,12 +2339,14 @@ function filterTable() {
                                     case 'wav':
                                     case 'mp3':
                                     case 'm4a':
+                                    case 'ogg':
                                     switch (XN::getext($file['name'])) {
                                         // Audio
                                         case 'mp3':
                                         case 'm4a':
                                         case 'wav':
-                                            $result = str_replace(array('mp3', 'm4a', 'wav'), 'Audio', XN::getext($file['name']));
+                                        case 'ogg':
+                                            $result = str_replace(array('mp3', 'm4a', 'wav', 'ogg'), 'Audio', XN::getext($file['name']));
                                             break;
                                         // Video
                                         case 'mp4':
