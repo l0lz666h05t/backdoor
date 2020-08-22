@@ -858,10 +858,10 @@ function head($x, $y, $class = null) {
                 <li>
                     <button>
                         <div class="icon">
-                            <a><i class="fa fa-power-off" aria-hidden="true"></i></a>
+                            <a><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                         </div>
                         <div class="font">
-                            Logout
+                            Exit
                         </div>
                     </button>
                 </li>
