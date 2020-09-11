@@ -1,14 +1,14 @@
 <style type="text/css">
-	@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap');
 	* {
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Yantramanav', sans-serif;
 	}
 	body {
 		background: rgb(248, 249, 250);
 		padding-top: 10px;
 		padding-bottom: 10px;
-		padding-right:200px;
-		padding-left:200px;
+		padding-right:10px;
+		padding-left:10px;
 	}
 	a {
 		color: #000;
